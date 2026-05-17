@@ -350,11 +350,25 @@ export default function UsersListPage() {
               exit={{ opacity: 0, y: 16, scale: 0.98 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="flex items-center justify-between px-6 py-4 border-b">
-                <h2 className="text-lg font-semibold text-gray-900">Ajouter un membre</h2>
-                <Button variant="ghost" size="icon" onClick={closeCreate}>
-                  ✕
-                </Button>
+              <div className="bg-gradient-to-r from-[#135796] to-[#0f3f6d] px-6 py-5 text-white">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15">
+                        <UserPlus className="h-5 w-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <h2 className="truncate text-lg font-semibold">Ajouter un membre</h2>
+                        <p className="mt-0.5 truncate text-sm text-white/80">
+                          Créer un nouveau compte membre
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <Button variant="ghost" size="icon" onClick={closeCreate} className="text-white hover:bg-white/15 hover:text-white">
+                    ✕
+                  </Button>
+                </div>
               </div>
 
               <div className="flex-1 overflow-y-auto px-6 py-4">
@@ -508,7 +522,7 @@ export default function UsersListPage() {
                 </div>
               </div>
 
-              <div className="px-6 py-4 border-t bg-white flex justify-end gap-2">
+              <div className="flex justify-end gap-2 border-t bg-gray-50 px-6 py-4">
                 <Button variant="outline" onClick={closeCreate}>Annuler</Button>
                 <Button
                   onClick={() => {
@@ -567,14 +581,25 @@ export default function UsersListPage() {
               exit={{ opacity: 0, y: 16, scale: 0.98 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="flex items-center justify-between px-6 py-4 border-b">
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-900">Détails du membre</h2>
-                  <p className="text-sm text-gray-500">{viewUser.full_name}</p>
+              <div className="bg-gradient-to-r from-[#135796] to-[#0f3f6d] px-6 py-5 text-white">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15">
+                        <Eye className="h-5 w-5" />
+                      </div>
+                      <div className="min-w-0">
+                        <h2 className="truncate text-lg font-semibold">Détails du membre</h2>
+                        <p className="mt-0.5 truncate text-sm text-white/80">
+                          {viewUser.full_name}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <Button variant="ghost" size="icon" onClick={closeView} className="text-white hover:bg-white/15 hover:text-white">
+                    ✕
+                  </Button>
                 </div>
-                <Button variant="ghost" size="icon" onClick={closeView}>
-                  ✕
-                </Button>
               </div>
 
               <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
@@ -600,7 +625,16 @@ export default function UsersListPage() {
                       <div><span className="text-gray-500">Code:</span> {viewUser.code || '-'}</div>
                       <div><span className="text-gray-500">Téléphone:</span> {viewUser.telephone}</div>
                       <div><span className="text-gray-500">Email:</span> {viewUser.email || '-'}</div>
-                      <div><span className="text-gray-500">Genre:</span> {viewUser.genre || '-'}</div>
+                      <div>
+                        <span className="text-gray-500">Genre:</span>{' '}
+                        {(() => {
+                          const key = String(viewUser.genre ?? '').trim().toLowerCase()
+                          if (key === 'm' || key === 'masculin') return 'Masculin'
+                          if (key === 'f' || key === 'féminin' || key === 'feminin') return 'Féminin'
+                          if (key === 'autre') return 'Autre'
+                          return '-'
+                        })()}
+                      </div>
                       <div><span className="text-gray-500">Date naissance:</span> {viewUser.date_naissance || '-'}</div>
                       <div className="sm:col-span-2"><span className="text-gray-500">Adresse:</span> {viewUser.adresse || '-'}</div>
                     </div>
@@ -665,7 +699,7 @@ export default function UsersListPage() {
                 </div>
               </div>
 
-              <div className="px-6 py-4 border-t bg-white flex justify-end gap-2">
+              <div className="flex justify-end gap-2 border-t bg-gray-50 px-6 py-4">
                 <Button variant="outline" onClick={closeView}>Fermer</Button>
               </div>
             </motion.div>
