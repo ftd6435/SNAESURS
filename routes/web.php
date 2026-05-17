@@ -2,16 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $frontendUrl = trim((string) env('FRONTEND_URL', ''));
-
-    if ($frontendUrl !== '') {
-        return redirect()->away(rtrim($frontendUrl, '/'));
+Route::get('/{any?}', function () {
+    $indexPath = public_path('app/index.html');
+    if (file_exists($indexPath)) {
+        return response()->file($indexPath);
     }
 
     if (app()->environment('local')) {
-        return redirect()->away('http://localhost:5173');
+        $frontendUrl = rtrim(env('FRONTEND_URL', 'http://localhost:5173'), '/');
+        return redirect()->away($frontendUrl);
     }
 
-    return view('welcome');
-});
+    abort(404);
+})->where('any', '.*');
