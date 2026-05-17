@@ -3,7 +3,15 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $frontendUrl = rtrim(env('FRONTEND_URL', 'http://localhost:5173'), '/');
+    $frontendUrl = trim((string) env('FRONTEND_URL', ''));
 
-    return redirect()->away($frontendUrl);
+    if ($frontendUrl !== '') {
+        return redirect()->away(rtrim($frontendUrl, '/'));
+    }
+
+    if (app()->environment('local')) {
+        return redirect()->away('http://localhost:5173');
+    }
+
+    return view('welcome');
 });
