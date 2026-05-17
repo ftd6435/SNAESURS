@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-body text-darkslate bg-surface;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .badge-card {
+    width: 320px;
+    height: 510px;
+  }
+
+  .badge-inner {
+    width: 320px;
+    height: 510px;
+  }
+
+  .badge-sheet {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  @media print {
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+
+    body {
+      background: white !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body * {
+      visibility: hidden;
+    }
+
+    .print-area,
+    .print-area * {
+      visibility: visible;
+    }
+
+    .print-area {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    .badge-card {
+      position: relative;
+      width: 54mm;
+      height: 86mm;
+      transform: none !important;
+    }
+
+    .badge-inner {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.635);
+      transform-origin: center;
+    }
+
+    .badge-sheet {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10mm !important;
+      justify-items: center !important;
+    }
+  }
+}
