@@ -3,7 +3,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "npm --prefix frontend run build",
+        "postinstall": "npm --prefix frontend install --include=dev --no-audit --no-fund",
+        "build": "(npm --prefix frontend ci --include=dev --no-audit --no-fund || npm --prefix frontend install --include=dev --no-audit --no-fund) && npm --prefix frontend run build",
         "dev": "npm --prefix frontend run dev -- --port 5173",
         "build:laravel": "vite build",
         "dev:laravel": "vite"
