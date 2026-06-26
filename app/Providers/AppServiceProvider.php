@@ -24,15 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Register event listeners
-        Event::listen(
-            SendMessageEvent::class,
-            SendMessageListener::class
-        );
-
-        Event::listen(
-            SendMessageToManyEvent::class,
-            SendMessageToManyListener::class
-        );
+        
     }
 }
